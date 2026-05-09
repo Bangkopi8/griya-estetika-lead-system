@@ -87,6 +87,20 @@ function validateForm(formData) {
   return nextErrors;
 }
 
+const DEBUG_AUTOFILL = {
+  nama_lengkap: "Test Lead GEA",
+  whatsapp: "081234567890",
+  provinsi: "Jawa Tengah",
+  kabupaten: "Kabupaten Sukoharjo",
+  kota: "Sukoharjo",
+  kebutuhan: "Desain rumah baru",
+  estimasi_budget: "Rp100 juta - Rp300 juta",
+  rencana_mulai: "1-3 bulan",
+  sudah_punya_lahan_atau_rumah: "Sudah punya lahan",
+  catatan:
+    "Ini adalah test submit dari debug mode untuk memastikan Google Sheet, UTM tracking, redirect thank-you page, dan WhatsApp flow berjalan.",
+};
+
 export default function LeadForm() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -96,9 +110,17 @@ export default function LeadForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [trackingValues, setTrackingValues] = useState(getStoredTrackingParams());
 
+  const isDebugMode = new URLSearchParams(location.search).get("debug") === "true";
+
   useEffect(() => {
     setTrackingValues(saveTrackingParams());
   }, [location.search]);
+
+  const handleAutofill = () => {
+    setFormData(DEBUG_AUTOFILL);
+    setErrors({});
+    setSubmitError("");
+  };
 
   const provinceOptions = useMemo(() => getProvinceOptions(), []);
   const kabupatenOptions = useMemo(
@@ -416,6 +438,17 @@ export default function LeadForm() {
       </p>
 
       {submitError ? <p className="form-error">{submitError}</p> : null}
+
+      {isDebugMode ? (
+        <button
+          type="button"
+          className="debug-autofill-button"
+          onClick={handleAutofill}
+          disabled={isSubmitting}
+        >
+          Autofill Test Form
+        </button>
+      ) : null}
 
       <button type="submit" className="cta-button cta-button--full" disabled={isSubmitting}>
         {isSubmitting ? "Mengirim..." : "Kirim & Lanjut Konsultasi"}
