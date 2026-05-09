@@ -13,8 +13,7 @@
  *
  * Catatan:
  * - Script ini akan memastikan sheet "Leads" selalu memakai header terbaru.
- * - Jika sebelumnya ada kolom lama seperti Tipe Wilayah / Lokasi Lainnya / Kabupaten/Kota,
- *   script akan menyelaraskan struktur sheet ke header baru.
+ * - Kolom WhatsApp diformat sebagai plain text agar leading zero tidak hilang.
  */
 
 const SHEET_NAME = "Leads";
@@ -25,11 +24,10 @@ const HEADERS = [
   "Provinsi",
   "Kabupaten",
   "Kota",
-  "Kota Area",
   "Kebutuhan",
   "Estimasi Budget",
   "Rencana Mulai",
-  "Sudah Punya Lahan/Rumah",
+  "Status Rumah / Lahan",
   "Catatan",
   "UTM Source",
   "UTM Medium",
@@ -41,12 +39,9 @@ const HEADERS = [
   "Ad ID",
   "FBCLID",
   "Landing Page",
-  "Referrer",
-  "Submitted At",
-  "Status Follow Up",
-  "Lead Quality",
-  "Notes Sales",
 ];
+
+const WHATSAPP_COL = 3; // 1-based column index for WhatsApp
 
 function doPost(e) {
   try {
@@ -60,7 +55,6 @@ function doPost(e) {
       params.provinsi || "",
       params.kabupaten || "",
       params.kota || "",
-      params.kota_area || "",
       params.kebutuhan || "",
       params.estimasi_budget || "",
       params.rencana_mulai || "",
@@ -76,11 +70,6 @@ function doPost(e) {
       params.ad_id || "",
       params.fbclid || "",
       params.landing_page || "",
-      params.referrer || "",
-      params.submitted_at || "",
-      "New",
-      "",
-      "",
     ]);
 
     return jsonResponse_({
@@ -111,15 +100,19 @@ function ensureHeaders_(sheet) {
   syncColumnCount_(sheet);
 
   const currentHeaders = sheet.getRange(1, 1, 1, HEADERS.length).getValues()[0];
-  const hasHeader = HEADERS.every(function (header, index) {
+  const hasCorrectHeaders = HEADERS.every(function (header, index) {
     return currentHeaders[index] === header;
   });
 
-  if (!hasHeader) {
+  if (!hasCorrectHeaders) {
     sheet.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);
   }
 
   sheet.setFrozenRows(1);
+
+  // Format entire WhatsApp column as plain text to preserve leading zeros
+  const lastRow = Math.max(sheet.getMaxRows(), 2);
+  sheet.getRange(2, WHATSAPP_COL, lastRow - 1, 1).setNumberFormat("@");
 }
 
 function syncColumnCount_(sheet) {
