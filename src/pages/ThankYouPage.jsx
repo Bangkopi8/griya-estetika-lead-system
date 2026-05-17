@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import BrandLogo from "../components/BrandLogo";
 import { Link } from "react-router-dom";
 import { trackLeadOnThankYou } from "../lib/metaPixel";
-import { createWhatsAppLink } from "../lib/whatsapp";
+import { createWhatsAppLinkFromForm } from "../lib/whatsapp";
+import { getStoredTrackingParams, getCampaignLabel } from "../lib/utm";
 
 const businessName =
   import.meta.env.VITE_BUSINESS_NAME || "Griya Estetika Arsitek";
@@ -11,6 +12,11 @@ export default function ThankYouPage() {
   useEffect(() => {
     trackLeadOnThankYou();
   }, []);
+
+  // Ambil data tracking untuk build WA link yang informatif
+  const tracking = getStoredTrackingParams();
+  const campaignLabel = getCampaignLabel();
+  const waLink = createWhatsAppLinkFromForm(tracking);
 
   return (
     <main className="thank-you-shell">
@@ -33,7 +39,7 @@ export default function ThankYouPage() {
 
         <div className="thank-you-actions">
           <a
-            href={createWhatsAppLink()}
+            href={waLink}
             target="_blank"
             rel="noreferrer"
             className="cta-button cta-button--large"
@@ -52,6 +58,13 @@ export default function ThankYouPage() {
             follow-up konsultasi lebih relevan dan efisien.
           </p>
         </div>
+
+        {/* Info source campaign — hanya tampil jika ada UTM */}
+        {campaignLabel ? (
+          <p style={{ fontSize: "0.78rem", color: "#aaa", marginTop: "1rem" }}>
+            Sumber: {campaignLabel}
+          </p>
+        ) : null}
       </section>
     </main>
   );
