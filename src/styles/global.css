@@ -605,15 +605,14 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 16px;
+  width: 58px;
+  height: 58px;
+  border-radius: 12px;
   margin-bottom: 1rem;
-  background: #111;
-  border: 1px solid rgba(185, 144, 69, 0.25);
+  background: transparent;
+  border: none;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
 }
 
 .service-icon img {
@@ -718,11 +717,10 @@ img {
   width: 52px;
   height: 52px;
   border-radius: 14px;
-  background: #111;
-  border: 1px solid rgba(185, 144, 69, 0.25);
+  background: transparent;
+  border: none;
   overflow: hidden;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 .reason-badge img {
