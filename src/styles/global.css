@@ -607,13 +607,20 @@ img {
   justify-content: center;
   width: 54px;
   height: 54px;
-  border-radius: 18px;
+  border-radius: 16px;
   margin-bottom: 1rem;
-  background: rgba(185, 144, 69, 0.12);
-  border: 1px solid rgba(185, 144, 69, 0.18);
-  color: var(--color-gold);
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  background: #111;
+  border: 1px solid rgba(185, 144, 69, 0.25);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+}
+
+.service-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .service-card h3,
@@ -708,12 +715,21 @@ img {
   justify-content: center;
   min-width: 52px;
   min-height: 52px;
-  border-radius: 16px;
-  background: rgba(185, 144, 69, 0.12);
-  border: 1px solid rgba(185, 144, 69, 0.18);
-  color: var(--color-gold);
-  font-weight: 800;
-  letter-spacing: 0.12em;
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #111;
+  border: 1px solid rgba(185, 144, 69, 0.25);
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.reason-badge img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 }
 
 .lead-copy-card {
@@ -735,12 +751,18 @@ img {
 
 .lead-form {
   display: grid;
-  gap: 1rem;
+  gap: 1.25rem;
+  background: rgba(255,255,255,0.98);
+  border: 1px solid rgba(229, 222, 212, 0.8);
+  border-radius: 24px;
+  padding: 2rem 2rem 1.75rem;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
 }
 
 .form-grid {
   display: grid;
-  gap: 1rem;
+  grid-template-columns: 1fr;
+  gap: 1.1rem 1.5rem;
 }
 
 .form-field {
@@ -751,17 +773,22 @@ img {
 .form-field label {
   color: var(--color-charcoal);
   font-weight: 600;
+  font-size: 0.88rem;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
 }
 
 .form-field input,
 .form-field select,
 .form-field textarea {
   width: 100%;
-  border: 1px solid var(--color-line);
-  border-radius: 16px;
-  background: var(--color-white);
-  padding: 0.95rem 1rem;
+  border: 1.5px solid rgba(229, 222, 212, 0.9);
+  border-radius: 12px;
+  background: var(--color-background);
+  padding: 0.9rem 1rem;
   color: var(--color-text);
+  font-size: 0.97rem;
+  transition: border-color 0.18s, box-shadow 0.18s;
 }
 
 .form-field input:focus,
@@ -778,6 +805,15 @@ img {
 
 .form-field--full {
   grid-column: 1 / -1;
+}
+
+.cta-button--full {
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 1rem;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  border-radius: 14px;
 }
 
 .field-error,

@@ -457,7 +457,7 @@ export default function LandingPage() {
             {reasons.map((reason) => (
               <article key={reason} className="reason-card">
                 <span className="reason-badge" aria-hidden="true">
-                  GEA
+                  <img src="/assets/gea-logo.png" alt="GEA" />
                 </span>
                 <p>{reason}</p>
               </article>
