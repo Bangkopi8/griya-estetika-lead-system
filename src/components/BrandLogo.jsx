@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const BRAND_LOGO_PATH = "/assets/gea-logo.png";
-const FALLBACK_TEXT = 'GEA \u00b7 Griya Estetika Arsitek';
+const FALLBACK_TEXT = 'GEA · Griya Estetika Arsitek';
 
 export default function BrandLogo({
   alt = "Griya Estetika Arsitek",
