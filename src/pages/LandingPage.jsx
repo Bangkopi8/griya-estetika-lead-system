@@ -87,55 +87,75 @@ const services = [
 ];
 
 const processSteps = [
-  "Isi form singkat agar kebutuhan awal Anda tercatat dengan rapi.",
-  "Tim memahami kebutuhan, area, target budget, dan rencana proyek Anda.",
-  "Konsultasi dilanjutkan via WhatsApp agar pembahasan lebih efisien.",
-  "Kami bantu arahkan konsep, kebutuhan ruang, dan estimasi budget secara lebih terstruktur.",
-  "Jika cocok, proses dilanjutkan ke tahap desain yang sesuai kebutuhan proyek Anda.",
+  {
+    emoji: "📋",
+    label: "Isi Form",
+    text: "Isi form singkat agar kebutuhan awal Anda tercatat dengan rapi.",
+  },
+  {
+    emoji: "🔍",
+    label: "Analisis Kebutuhan",
+    text: "Tim memahami kebutuhan, area, target budget, dan rencana proyek Anda.",
+  },
+  {
+    emoji: "💬",
+    label: "Konsultasi WhatsApp",
+    text: "Konsultasi dilanjutkan via WhatsApp agar pembahasan lebih efisien.",
+  },
+  {
+    emoji: "🏠",
+    label: "Arah Konsep",
+    text: "Kami bantu arahkan konsep, kebutuhan ruang, dan estimasi budget secara lebih terstruktur.",
+  },
+  {
+    emoji: "✏️",
+    label: "Mulai Desain",
+    text: "Jika cocok, proses dilanjutkan ke tahap desain yang sesuai kebutuhan proyek Anda.",
+  },
 ];
 
 const portfolioItems = [
   {
-    title: "Residential Project",
+    title: "YM House",
     category: "Desain Rumah Tinggal",
     description:
-      "Arah desain hunian yang rapi, nyaman, dan menyeimbangkan estetika serta fungsi ruang.",
+      "Desain rumah tinggal dengan nuansa hangat, fasad elegan, dan tata ruang yang menyeimbangkan estetika serta fungsi.",
     image: "/assets/project-1.jpg",
   },
   {
-    title: "Commercial Project",
+    title: "Ruko Jogja",
     category: "Komersial",
     description:
-      "Konsep visual dan pengalaman ruang yang lebih profesional untuk kebutuhan usaha dan properti bisnis.",
+      "Konsep bangunan komersial modern yang profesional untuk kebutuhan usaha dan properti bisnis.",
     image: "/assets/project-2.jpg",
   },
   {
-    title: "Concept Project",
+    title: "The Green Park Residence",
     category: "Studi Konsep",
     description:
-      "Tahap awal untuk merapikan ide, kebutuhan ruang, dan arah visual proyek sebelum desain detail.",
+      "Konsep hunian kontemporer dengan atap dramatic, material alami, dan lanskap yang menyatu dengan alam.",
     image: "/assets/project-3.jpg",
   },
   {
-    title: "Finished Project",
+    title: "Rumah Minimalis Modern",
     category: "Realisasi",
     description:
-      "Contoh pendekatan desain yang lebih siap diterjemahkan ke pekerjaan lapangan secara terarah.",
-    image: "/assets/project-1.jpg",
+      "Desain rumah tinggal yang bersih dan proporsional dengan pendekatan modern minimalis yang timeless.",
+    image: "/assets/project-4.jpg",
   },
   {
-    title: "Modern Home",
+    title: "Modern Residence",
     category: "Rumah Modern",
     description:
       "Gaya rumah modern yang bersih, proporsional, dan mudah disesuaikan dengan kebutuhan keluarga masa kini.",
-    image: "/assets/project-2.jpg",
+    image: "/assets/project-5.jpg",
   },
   {
-    title: "American Style Home",
-    category: "American Style",
+    title: "Restaurant Jawa",
+    category: "Komersial & Resto",
     description:
-      "Tampilan rumah dengan karakter hangat, elegan, dan kaya detail fasad yang berkelas.",
-    image: "/assets/project-3.jpg",
+      "Desain restoran berkonsep Jawa tradisional dengan material kayu dan suasana yang hangat dan berkarakter.",
+    image: "/assets/project-6.jpg",
   },
 ];
 
@@ -406,10 +426,11 @@ export default function LandingPage() {
           description="Mengisi form lebih dulu membuat proses konsultasi via WhatsApp menjadi jauh lebih efektif dan tidak perlu mengulang dari awal."
         >
           <div className="process-grid">
-            {processSteps.map((step, index) => (
-              <article key={step} className="process-card">
-                <span className="process-number">0{index + 1}</span>
-                <p>{step}</p>
+            {processSteps.map((step) => (
+              <article key={step.label} className="process-card">
+                <span className="process-emoji" aria-hidden="true">{step.emoji}</span>
+                <strong className="process-label">{step.label}</strong>
+                <p>{step.text}</p>
               </article>
             ))}
           </div>

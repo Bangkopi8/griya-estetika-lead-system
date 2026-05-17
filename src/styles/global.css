@@ -624,17 +624,31 @@ img {
 }
 
 .process-number {
+  display: none;
+}
+
+.process-emoji {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 999px;
-  margin-bottom: 1rem;
-  background: rgba(17, 17, 17, 0.96);
-  color: var(--color-soft-gold);
-  font-family: Georgia, "Times New Roman", serif;
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  margin-bottom: 0.75rem;
+  background: rgba(185, 144, 69, 0.10);
+  border: 1px solid rgba(185, 144, 69, 0.20);
+  font-size: 1.9rem;
+  line-height: 1;
+}
+
+.process-label {
+  display: block;
+  font-size: 0.8rem;
   font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: 0.5rem;
 }
 
 .portfolio-card {
