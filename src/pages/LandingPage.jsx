@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import BrandLogo from "../components/BrandLogo";
 import FAQ from "../components/FAQ";
 import LeadForm from "../components/LeadForm";
 import PortfolioCard from "../components/PortfolioCard";
 import Section from "../components/Section";
 import ServiceCard from "../components/ServiceCard";
+import { trackPageView } from "../lib/metaPixel";
 
 const businessName =
   import.meta.env.VITE_BUSINESS_NAME || "Griya Estetika Arsitek";
@@ -223,6 +225,10 @@ function formatWhatsAppDisplay(number) {
 }
 
 export default function LandingPage() {
+  useEffect(() => {
+    trackPageView();
+  }, []);
+
   const scrollToSection = (sectionId) => {
     const element = document.getElementById(sectionId);
 
