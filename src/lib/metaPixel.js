@@ -52,6 +52,43 @@ export function initMetaPixel() {
   return true;
 }
 
+// Ambil fbp / fbc cookie dari browser
+function getFbCookies() {
+  if (!canUseBrowser()) return {};
+  const cookies = document.cookie.split(";").reduce((acc, c) => {
+    const [k, v] = c.trim().split("=");
+    acc[k] = v;
+    return acc;
+  }, {});
+  return {
+    fbp: cookies["_fbp"] || "",
+    fbc: cookies["_fbc"] || "",
+  };
+}
+
+// Kirim event ke CAPI via Vercel serverless function
+async function sendServerEvent(eventName, customData = {}) {
+  try {
+    const { fbp, fbc } = getFbCookies();
+    await fetch("/api/track", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        event_name: eventName,
+        event_time: Math.floor(Date.now() / 1000),
+        event_source_url: window.location.href,
+        client_user_agent: navigator.userAgent,
+        fbp,
+        fbc,
+        custom_data: customData,
+      }),
+    });
+  } catch (err) {
+    // silent fail — jangan ganggu user experience
+    console.warn("CAPI send failed:", err);
+  }
+}
+
 export function trackPageView() {
   if (!canUseBrowser() || !isMetaPixelConfigured()) {
     return false;
@@ -59,6 +96,10 @@ export function trackPageView() {
 
   initMetaPixel();
   window.fbq?.("track", "PageView");
+
+  // Kirim juga via server (CAPI)
+  sendServerEvent("PageView");
+
   return true;
 }
 
@@ -95,7 +136,15 @@ export function trackLeadOnThankYou() {
   }
 
   initMetaPixel();
+
+  // Browser pixel
   window.fbq?.("track", "Lead", {
+    content_name: "Griya Estetika Arsitek Form Submit",
+    lead_source: "Meta Landing Page",
+  });
+
+  // Server event (CAPI)
+  sendServerEvent("Lead", {
     content_name: "Griya Estetika Arsitek Form Submit",
     lead_source: "Meta Landing Page",
   });
